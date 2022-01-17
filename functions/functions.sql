@@ -13,7 +13,6 @@ BEGIN
 end ##
 DELIMITER ;
 
-drop function candidate_age;
 select candidate_age(2);
 
 
@@ -30,7 +29,6 @@ BEGIN
 end ##
 DELIMITER ;
 
-drop function candidate_name;
 select candidate_name(2);
 
 
@@ -65,7 +63,7 @@ BEGIN
 end ##
 DELIMITER ;
 
-select company_name('PWC');
+select company_name('Banglore');
     
 
 
