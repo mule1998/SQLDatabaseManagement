@@ -1,4 +1,4 @@
-use candidate_management;
+use lms;
 
 call company_name;
 
