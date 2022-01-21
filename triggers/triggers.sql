@@ -1,29 +1,26 @@
-use candidate_management;
+use lms;
 
 
 /* To update valid password, trigger will be invoked before update to check the new value of password if its empty sql error message will be singled.*/
 
 DELIMITER $$
-	CREATE TRIGGER before_update_password
-	BEFORE UPDATE ON user_details FOR EACH ROW
-	BEGIN
-		DECLARE error_message1 VARCHAR(600);
-		DECLARE error_message2 VARCHAR(600);
-		SET error_message1=('Password is Empty.');
-		SET error_message2=('New Password Should Be Defferent From New Password.');
-			IF
-				new.password = '' THEN signal sqlstate '45000' set message_text=error_messge;
-			ELSEIF
-				new.password = old.password THEN signal sqlstate '44000' set message_text=error_mesage;
-			END IF;
-	END$$
-DELIMITER ;
+CREATE TRIGGER before_update_password
+BEFORE UPDATE ON user_details FOR EACH ROW
+BEGIN
+	DECLARE error_msg1 VARCHAR(600);
+	DECLARE error_msg2 VARCHAR(600);
+	SET error_msg1=('Password cannot be empty');
+	SET error_msg2=('New Password Should Be Defferent From Old Password.');
+	IF
+		new.password = '' THEN signal sqlstate '45000' set message_text=error_msg1;
+	ELSEIF
+		new.password = old.password THEN signal sqlstate '44000' set message_text=error_msg2;
+	END IF;
+END$$
+DELIMITER ;    
 
-UPDATE user_details 
-SET 
-    password = 'Neha@123'
-WHERE
-    id = 3;
+
+UPDATE user_details set password = '' where id = 3;
     
     
     
@@ -40,4 +37,6 @@ DELIMITER $$
 DELIMITER ;
 
 
-DELETE FROM company WHERE name = 'KPMG';
+DELETE FROM company where name='TCS';
+  
+SELECT * FROM company_trash;
